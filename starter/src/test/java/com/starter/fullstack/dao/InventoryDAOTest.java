@@ -109,5 +109,6 @@ public class InventoryDAOTest {
 		// this.inventoryDAO.delete(createdInventory.get()); - no need for Deleting
 		// collection, as it will be deleted with @After
 
+		
 	}
 }
