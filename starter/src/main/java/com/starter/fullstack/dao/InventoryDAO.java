@@ -13,6 +13,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 /**
  * Inventory DAO
  */
@@ -20,6 +24,7 @@ public class InventoryDAO {
   private final MongoTemplate mongoTemplate;
   private static final String NAME = "name";
   private static final String PRODUCT_TYPE = "productType";
+<<<<<<< HEAD
   //private static final String ID = "id";
   //private static final String VERSION = "version";
 
@@ -28,14 +33,27 @@ public class InventoryDAO {
 * 
 * @param mongoTemplate MongoTemplate.
 */
+=======
+
+/**
+ * Default Constructor.
+ * 
+ * @param mongoTemplate MongoTemplate.
+ */
+>>>>>>> master
   public InventoryDAO(MongoTemplate mongoTemplate) {
     Assert.notNull(mongoTemplate, "MongoTemplate must not be null.");
     this.mongoTemplate = mongoTemplate;
   }
 
 /**
+<<<<<<< HEAD
 * Constructor to build indexes for rate blackout object
 */
+=======
+ * Constructor to build indexes for rate blackout object
+ */
+>>>>>>> master
   @PostConstruct
   public void setupIndexes() {
     IndexOperations indexOps = this.mongoTemplate.indexOps(Inventory.class);
@@ -44,15 +62,23 @@ public class InventoryDAO {
   }
 
 /**
+<<<<<<< HEAD
 * Find All Inventory.
 * 
 * @return List of found Inventory.
 */
+=======
+ * Find All Inventory.
+ * 
+ * @return List of found Inventory.
+ */
+>>>>>>> master
   public List<Inventory> findAll() {
     return this.mongoTemplate.findAll(Inventory.class);
   }
 
 /**
+<<<<<<< HEAD
 * Save Inventory.
 * 
 * @param inventory Inventory to Save/Update.
@@ -74,10 +100,45 @@ public class InventoryDAO {
   public Optional<Inventory> retrieve(String id) {
 // TODO
 // IB - is it findById?
+=======
+ * Save Inventory.
+ * 
+ * @param inventory Inventory to Save/Update.
+ * @return Created/Updated Inventory.
+ */
+  public Inventory create(Inventory inventory) {
+    inventory.setId(null);
+    return this.mongoTemplate.save(inventory);
+    // No need for checking if inventory is Blank
+  }
+
+/**
+ * Retrieve Inventory.
+ * 
+ * @param id Inventory id to Retrieve.
+ * @return Found Inventory.
+ */
+  public Optional<Inventory> retrieve(String id) {
+  // TODO
+  // IB - is it findById?
     return Optional.empty();
   }
 
 /**
+ * Update Inventory.
+ * 
+ * @param id        Inventory id to Update.
+ * @param inventory Inventory to Update.
+ * @return Updated Inventory.
+ */
+  public Optional<Inventory> update(String id, Inventory inventory) {
+    // TODO
+>>>>>>> master
+    return Optional.empty();
+  }
+
+/**
+<<<<<<< HEAD
 * Update Inventory.
 * 
 * @param id Inventory id to Update.
@@ -96,12 +157,23 @@ public class InventoryDAO {
 * @return Deleted Inventory.
 */
   
+=======
+ * Delete Inventory By Id.
+ * 
+ * @param id Id of Inventory.
+ * @return Deleted Inventory.
+ */
+>>>>>>> master
   public Inventory delete(String id) {
     Inventory inventory = new Inventory();
     Inventory deletedInventory = mongoTemplate.findAndRemove(new Query(Criteria.where("id")
       .is(inventory.getId())), Inventory.class);
     return deletedInventory;
+<<<<<<< HEAD
     
   } 
   
+=======
+  }
+>>>>>>> master
 }
