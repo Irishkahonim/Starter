@@ -38,13 +38,8 @@ public class InventoryDAOTest {
   }
 
 /**
-<<<<<<< HEAD
 * Test Find All method.
 */
-=======
- * Test Find All method.
- */
->>>>>>> master
   @Test
   public void findAll() {
     Inventory inventory = new Inventory();
@@ -56,13 +51,8 @@ public class InventoryDAOTest {
   }
 
 /**
-<<<<<<< HEAD
 * Test Create/Save method.
 */
-=======
- * Test Create/Save method.
- */
->>>>>>> master
   @Test
   public void save() {
     Inventory inventory1 = new Inventory();
@@ -94,7 +84,6 @@ public class InventoryDAOTest {
     Assert.assertEquals(actualInventory.stream().count(), 2);
 
   }
-<<<<<<< HEAD
   
   /**
   * Test Delete method.
@@ -117,27 +106,5 @@ public class InventoryDAOTest {
 
     Assert.assertNull(inventory);
     
-=======
-
-/**
- * Test Delete method.
- */
-  @Test
-  public void delete() { 
-    Inventory inventory = new Inventory();
-    inventory.setName("Toyota");
-    inventory.setProductType("Cars");
-    Inventory createdInventory = inventoryDAO.create(inventory);
-    System.out.println("Inventory before delete is " + inventory);
-    
-    Assert.assertNotNull("Inventory should NOT be Null", createdInventory);
-    Assert.assertNotNull("ID should NOT be Null", createdInventory.getId());
-
-    inventory = this.inventoryDAO.delete(createdInventory.getId());  
-    System.out.println("Inventory after delete is " + inventory);
-
-    Assert.assertNull(inventory);
-  
->>>>>>> master
   }
 }
