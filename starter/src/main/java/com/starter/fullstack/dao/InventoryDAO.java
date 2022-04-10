@@ -12,8 +12,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
-
-
 /**
  * Inventory DAO
  */
@@ -93,10 +91,19 @@ public class InventoryDAO {
  * @param id Id of Inventory.
  * @return Deleted Inventory.
  */
-  public Inventory delete(String id) {
+ 
+  public Optional<Inventory> delete(String id) {
+
+
     Inventory inventory = new Inventory();
     Inventory deletedInventory = mongoTemplate.findAndRemove(new Query(Criteria.where("id")
       .is(inventory.getId())), Inventory.class);
-    return deletedInventory;
+
+    Optional<Inventory> inventoryOptional = Optional.ofNullable(deletedInventory);
+
+    return inventoryOptional;   
+
   }
+
 }
+

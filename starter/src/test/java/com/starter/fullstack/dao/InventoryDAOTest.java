@@ -3,9 +3,12 @@ package com.starter.fullstack.dao;
 import com.starter.fullstack.api.Inventory;
 import com.starter.fullstack.config.EmbedMongoClientOverrideConfig;
 import java.util.List;
+import java.util.Optional;
+
 import javax.annotation.Resource;
 import org.junit.After;
 import org.junit.Assert;
+//import org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -93,18 +96,22 @@ public class InventoryDAOTest {
     Inventory inventory = new Inventory();
     inventory.setName("Toyota");
     inventory.setProductType("Cars");
+    System.out.println("IB Inventory before CREATE " + inventory);
+    
     Inventory createdInventory = inventoryDAO.create(inventory);
-    System.out.println("IB Test - this is created inventory " + createdInventory);
+    System.out.println("IB Inventory after CREATE - createdInventory " + createdInventory);
 
     Assert.assertNotNull("Inventory should NOT be Null", createdInventory);
     Assert.assertNotNull("ID should NOT be Null", createdInventory.getId());
 
-    System.out.println("Inventory before delete is " + inventory);
+    System.out.println("IB Test what's inventory now " + inventory);
 
-    inventory = this.inventoryDAO.delete(createdInventory.getId());  
-    System.out.println("Inventory after delete is " + inventory);
+    Optional<Inventory> inventoryOptional = Optional.ofNullable(createdInventory);
+    System.out.println("IB optional Inventory before delete - should have Totyota " + inventoryOptional);
+    inventoryOptional = this.inventoryDAO.delete(createdInventory.getId());  
+    System.out.println("IB Optional Inventory after delete - should be EMPTY " + inventoryOptional);
 
-    Assert.assertNull(inventory);
+    Assert.assertEquals(Optional.empty(), inventoryOptional);
     
   }
 }
