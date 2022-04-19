@@ -4,11 +4,9 @@ import com.starter.fullstack.api.Inventory;
 import com.starter.fullstack.config.EmbedMongoClientOverrideConfig;
 import java.util.List;
 import java.util.Optional;
-
 import javax.annotation.Resource;
 import org.junit.After;
 import org.junit.Assert;
-//import org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -100,18 +98,23 @@ public class InventoryDAOTest {
     
     Inventory createdInventory = inventoryDAO.create(inventory);
     System.out.println("IB Inventory after CREATE - createdInventory " + createdInventory);
-
+    
+    //Optional type for Created Inventory - expected value
+    Optional<Inventory> inventoryOptCreated = Optional.ofNullable(createdInventory);
+    
     Assert.assertNotNull("Inventory should NOT be Null", createdInventory);
     Assert.assertNotNull("ID should NOT be Null", createdInventory.getId());
 
-    System.out.println("IB Test what's inventory now " + inventory);
+    //Optional type for Deleted Inventory - actual value
+    Optional<Inventory> inventoryOptionalDeleted = this.inventoryDAO.delete(createdInventory.getId());  
+    System.out.println("IB Optional Inventory after delete - will retun deleted inventory " + inventoryOptionalDeleted);
 
-    Optional<Inventory> inventoryOptional = Optional.ofNullable(createdInventory);
-    System.out.println("IB optional Inventory before delete - should have Totyota " + inventoryOptional);
-    inventoryOptional = this.inventoryDAO.delete(createdInventory.getId());  
-    System.out.println("IB Optional Inventory after delete - should be EMPTY " + inventoryOptional);
-
-    Assert.assertEquals(Optional.empty(), inventoryOptional);
+    //Checking what we have after deleting. Number of inventories should be equal to Zero
+    List<Inventory> inventories = this.inventoryDAO.findAll();
+    Assert.assertEquals(inventories.stream().count(), 0);
     
+    //Checking that deleted inventory is the same as created inventory
+    Assert.assertEquals(inventoryOptCreated, inventoryOptionalDeleted);   
+
   }
 }
