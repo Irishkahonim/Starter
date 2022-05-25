@@ -14,11 +14,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-/**import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;*/
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,11 +38,12 @@ public class InventoryControllerTest {
 
   @Before
   public void setup() throws Throwable {
-    this.inventory = new Inventory();
-    this.inventory.setId("ID");
-    this.inventory.setName("TEST");
+    this.inventory = new Inventory();   
+    this.inventory.setId("12345");         
+    this.inventory.setName("FRUITS Inventory");      
+    this.inventory.setProductType("APPLE TYPE");  
     // Sets the Mongo ID for us
-    this.inventory = this.mongoTemplate.save(this.inventory);
+    this.inventory = this.mongoTemplate.save(this.inventory);   
   }
 
   @After
@@ -60,6 +61,8 @@ public class InventoryControllerTest {
         .accept(MediaType.APPLICATION_JSON))
       .andExpect(status().isOk())
       .andExpect(content().json("[" + this.objectMapper.writeValueAsString(inventory) + "]"));
+    System.out.println("IB Test find all with BEFORE test - " + inventory);
+  
   }
 
   /**
@@ -84,15 +87,22 @@ public class InventoryControllerTest {
    * Test remove endpoint.
    * @throws Throwable see MockMvc
    */
-//  @Test
-//  public void remove() throws Throwable {
-//    this.mockMvc.perform(delete("/inventory")
-//        .accept(MediaType.APPLICATION_JSON)
-//        .contentType(MediaType.APPLICATION_JSON)
-//        .content("[\"" + this.inventory.getId() + "\"]"))
-//      .andExpect(status().isOk());
-//    
-//    Assert.assertEquals(0, this.mongoTemplate.findAll(Inventory.class).size());
-//  }
+ 
+  @Test
+  public void remove() throws Throwable {
+    String testID = this.inventory.getId();
+    System.out.println("IB Test String ID - " + testID);
+    this.mockMvc.perform(delete("/inventory")
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(this.inventory.getId()))   
+        .andExpect(status().isOk()); 
+   
+    System.out.println("IB Test Inventory after delete - " + inventory);
+    Assert.assertEquals(0, this.mongoTemplate.findAll(Inventory.class).size());
+   
+    
+  }
+
 }
 
