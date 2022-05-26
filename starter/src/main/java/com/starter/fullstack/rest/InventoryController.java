@@ -43,7 +43,7 @@ public class InventoryController {
   
   /**
    * Save Inventory.
-   * @param inventory inventory.
+   * @param Inventory inventory.
    * @return Inventory.
    */
   @PostMapping

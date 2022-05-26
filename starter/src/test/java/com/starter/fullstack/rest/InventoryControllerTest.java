@@ -100,8 +100,7 @@ public class InventoryControllerTest {
    
     System.out.println("IB Test Inventory after delete - " + inventory);
     Assert.assertEquals(0, this.mongoTemplate.findAll(Inventory.class).size());
-   
-    
+       
   }
 
 }
