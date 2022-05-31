@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/inventory")    
-@ResponseBody
+
 public class InventoryController {
   private final InventoryDAO inventoryDAO;
 
@@ -43,7 +42,7 @@ public class InventoryController {
   
   /**
    * Save Inventory.
-   * @param Inventory inventory.
+   * @param inventory inventory
    * @return Inventory.
    */
   @PostMapping
