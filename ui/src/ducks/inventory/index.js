@@ -35,13 +35,13 @@ export const saveInventory = createAction(actions.INVENTORY_SAVE, (inventory) =>
     })
 )
 
-export const removeInventory = createAction(actions.INVENTORY_DELETE, (ids) =>
+export const removeInventory = createAction(actions.INVENTORY_DELETE, (id) =>
   (dispatch, getState, config) => axios
-    .delete(`${config.restAPIUrl}/inventory`, { data: ids })
+    .delete(`${config.restAPIUrl}/inventory`, { data: id })
     .then((suc) => {
       const invs = []
       getState().inventory.all.forEach(inv => {
-        if (!ids.includes(inv.id)) {
+        if (!id.includes(inv.id)) {
           invs.push(inv)
         }
       })
@@ -50,9 +50,14 @@ export const removeInventory = createAction(actions.INVENTORY_DELETE, (ids) =>
 )
 
 export const refreshInventory = createAction(actions.INVENTORY_REFRESH, (payload) =>
-  (dispatcher, getState, config) =>
-    payload.sort((inventoryA, inventoryB) => inventoryA.name < inventoryB.name ? -1 : inventoryA.name > inventoryB.name ? 1 : 0)
+  (dispatcher, getState, config) => {
+    console.log("IB Test")
+    console.log(config.restAPIUrl)
+    return payload.sort((inventoryA, inventoryB) => inventoryA.name < inventoryB.name ? -1 : inventoryA.name > inventoryB.name ? 1 : 0)
+    }
+    
 )
+
 
 export default handleActions({
   [actions.INVENTORY_GET_ALL_PENDING]: (state) => ({
